@@ -2,7 +2,7 @@
 
 Bản nháp để duyệt nội dung trước khi dựng slide. Duyệt xong mới tạo file `.pptx`.
 
-- Đề tài: Thiết kế pipeline trích xuất mạng lưới thực thể lịch sử bằng LLM và triển khai hệ thống CSDL lưu trữ
+- Đề tài: Triển khai hệ thống CSDL đồ thị tri thức và thiết kế pipeline trích xuất mạng lưới thực thể lịch sử 5W1H bằng LLM
 - Người thực hiện: Trần Việt Hoàng, MSSV 25MSA13219
 - Giảng viên hướng dẫn: TS Bùi Trung Hiếu
 - Số slide: 21, khoảng 15 đến 20 phút trình bày
@@ -28,8 +28,8 @@ Bố cục:
 Nội dung:
 
 - Trường Đại học FPT · Thesis Proposal
-- Thiết kế pipeline trích xuất mạng lưới thực thể lịch sử bằng LLM và triển khai hệ thống CSDL lưu trữ
-- Designing an LLM Pipeline to Extract a Network of Historical Entities and Implementing a Storage Database System
+- Triển khai hệ thống CSDL đồ thị tri thức và thiết kế pipeline trích xuất mạng lưới thực thể lịch sử 5W1H bằng LLM
+- Implementing a Knowledge Graph Database System and Designing an LLM Pipeline to Extract a 5W1H Network of Historical Entities
 - Người thực hiện: Trần Việt Hoàng · MSSV 25MSA13219
 - Giảng viên hướng dẫn: TS Bùi Trung Hiếu
 - Hà Nội, 2026
@@ -56,11 +56,12 @@ Lời nói: dự án bắt đầu từ yêu cầu của môn học, không bắt
 
 Nội dung:
 
-- Phiếu và sơ đồ trên lớp nằm lại trong vở, không dùng lại được, không đo được độ bám nguồn.
+- Bài giảng lịch sử nằm lại trong vở, khó dùng lại, không đo được độ bám nguồn.
 - Thư viện số tìm được cuốn sách, nhưng không trả lời được "ai có mặt ở trận Bạch Đằng 1288".
 - Chatbot trả lời trôi chảy nhưng có thể thêm năm, thêm người không có trong nguồn.
 - Một nhân vật có nhiều tên gọi: Trần Quốc Tuấn, Hưng Đạo Vương, Hưng Đạo Đại Vương.
 - Hai bộ sử có thể kể khác nhau về cùng một trận.
+- Thực tiễn cần một hệ thống giải quyết các vấn đề này.
 
 Gợi ý trình bày: năm điểm nghẽn, mỗi điểm một biểu tượng. Có thể đặt một câu chatbot trả lời sai niên đại cạnh câu trích đúng trong sách.
 
@@ -101,10 +102,10 @@ Nội dung:
 
 Làm trong đồ án:
 
-- Nhận văn bản tiếng Việt đã có chữ sẵn.
+- Nhận đầu vào là văn bản sử liệu tiếng Việt.
 - Mã định danh mờ do PostgreSQL cấp, giữ trong master registry.
 - Trích xuất bản ghi chủ thể và quan hệ theo hệ thống chủ thể và từ khóa, khử trùng lặp danh xưng, nạp vào knowledge graph.
-- Kho thí điểm: kháng chiến chống quân Mông - Nguyên, mạch chính là trận Bạch Đằng 1288.
+- Kho thí điểm: sử liệu đã gắn nhãn về một sự kiện lịch sử, lấy từ nhiều nguồn.
 - Bốn API: `/extract-5w1h`, `/resolve-entity`, `/ingest-graph`, `/entities/{entity_id}`.
 - Giao diện demo cho người vận hành.
 
@@ -161,7 +162,7 @@ Gợi ý trình bày: bảng là trọng tâm, tô nổi cột "Đồ án".
 
 Nội dung:
 
-- Khoảng trống: chưa có pipeline đo được theo đường văn bản sử tiếng Việt -> bản ghi chủ thể và quan hệ (mỗi thực thể một mã) -> knowledge graph. Gold set do người gắn nhãn dùng để đối chiếu.
+- Khoảng trống: chưa có pipeline đo được từ văn bản sử tiếng Việt -> bản ghi chủ thể đã xác lập quan hệ -> knowledge graph. Gold set do con người gắn nhãn dùng để đối chiếu.
 - RQ1: Cách quản lý sử liệu và trích xuất sự kiện hiện nay thuận lợi và vướng ở đâu với tiếng Việt và môn Lịch sử phổ thông?
 - RQ2: Trong phạm vi đồ án, cách nào vừa sức để trích xuất bản ghi chủ thể và quan hệ, khử trùng lặp danh xưng và nạp vào graph?
 - RQ3: Đo chất lượng trích xuất và chất lượng khử trùng lặp danh xưng bằng cách nào?
@@ -195,8 +196,8 @@ Nội dung:
 | Mục tiêu | Tuần | Việc phải xong |
 | --- | --- | --- |
 | O1 | 1–3 | Schema tám chủ thể, mã mờ, master registry, ba database |
-| O2 | 4–8 | Bốn API, gold set, trích xuất, nạp graph, khử trùng lặp danh xưng |
-| O3 | 9–12 | Demo, đo trên test set, luận văn và slide |
+| O2 | 4–8 | Các API, pipeline trích xuất, khử trùng lặp danh xưng, nạp graph, demo |
+| O3 | 9–12 | Gold set do con người gắn nhãn; đo độ khớp F1 và precision trên test set; luận văn và slide |
 
 Gợi ý trình bày: ba bậc thang đi lên, mỗi bậc là một mục tiêu. Tuần 6 là mốc giữa kỳ.
 
@@ -279,7 +280,7 @@ Nội dung:
 | Backend, API và schema | Python 3.12, FastAPI, Pydantic | Bốn API, từ chối kết quả sai schema |
 | Graph database | Neo4j 5 | Bắt buộc có dữ liệu demo |
 | Vector database | ChromaDB | Dựng sẵn schema và vài bản ghi mẫu |
-| Sổ đăng bạ, nguồn và log | PostgreSQL 16 | Cấp mã mờ, tra danh xưng, giữ văn bản gốc và log nạp |
+| Master registry, nguồn và log | PostgreSQL 16 | Cấp mã mờ, tra danh xưng, giữ văn bản gốc và log nạp |
 | Trích xuất | LLM có structured output | Tên mô hình ghi trong báo cáo |
 | So danh xưng | Embedding model tiếng Việt (PhoBERT hoặc tương đương) | Chỉ để xếp hạng ứng viên |
 | Demo | Streamlit | Dán chữ, xem kết quả trích xuất, nạp graph |
@@ -322,9 +323,11 @@ Nội dung:
 | Precision của bước khử trùng lặp danh xưng | Chỉ tính các ca hệ thống tự quyết | 90% đến 95% |
 | Thời gian trích xuất | Từ khi nhận chữ đến khi có kết quả đúng schema | Dưới 3 đến 5 giây mỗi trang |
 
-- Gold set do người gắn nhãn, không nhìn kết quả mô hình khi gắn. Tách dev set và test set; test set không dùng để tinh chỉnh.
-- Ca FLAGGED không tính vào mẫu số precision.
 - Các con số là đích đặt ra, chưa phải kết quả đã đo.
+- Gold set do người gắn nhãn, không nhìn kết quả mô hình. Tách dev set và test set. Test set chỉ dùng một lần.
+- Khớp từ khóa khi cùng giá trị và có đúng đoạn trích. Thừa, thiếu và null được tính riêng. Báo riêng từng chủ thể.
+- Precision chỉ tính ca hệ thống tự gộp. Ca FLAGGED không đưa vào mẫu số.
+- Thời gian là trung bình trên test set, từ lúc nhận chữ đến JSON đúng schema.
 
 Gợi ý trình bày: bốn thẻ chỉ số lớn, dưới mỗi thẻ ghi cách tính trong một dòng.
 

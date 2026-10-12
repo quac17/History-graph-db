@@ -10,7 +10,7 @@
 - Step 6. Confirmed results are loaded into Neo4j with MERGE on the issued identifier. The same identifier updates the existing node and does not create a second one.
 - Step 7. The demo only has to show that an alias already in the master registry resolves to the existing identifier.
 
-**Data & Technologies:** The test corpus is textbook passages or permitted historical passages on the resistance against the Mongol-Yuan armies and the Bach Dang campaign of 1288. The gold set is labeled by a person for subjects, keywords, and relations, without looking at model output. It is split into a dev set and a test set.
+**Data & Technologies:** The pilot corpus is labeled material about one historical event, taken from several sources. The gold set is labeled by a person for subjects, keywords, and relations, without looking at model output. It is split into a dev set and a test set. The threshold and the prompt are tuned only on the dev set. The test set is used once to produce the reported figures.
 
 Technologies used in the thesis:
 
@@ -29,4 +29,18 @@ Technologies used in the thesis:
 | Precision of entity resolution | Only cases the system decides by itself | 90% to 95% |
 | Extraction time | From receiving the text to a schema-valid result | Under 3 to 5 seconds per page |
 
-FLAGGED cases are not in the precision denominator. A record without a quotation stays DRAFT. If F1 score is below the target, the report is still valid when it includes an error table by subject and relation type.
+Keyword F1 score is computed on each filled keyword.
+
+- A match requires the same subject, the same keyword, the same value as the gold set, and the correct quotation.
+- A value that is not in the gold set, or a value without the correct quotation, counts as an extra.
+- A gold value that the system misses or leaves null counts as a miss.
+- Null on both sides is not an error.
+- Report each subject. Do not hide a weak subject inside one average.
+
+Relation F1 score matches only when all four conditions hold: the correct head identifier, the correct relation type, the correct tail identifier, and a quotation.
+
+Precision of entity resolution counts only cases in which the system itself assigns an alias to an existing identifier. FLAGGED cases are not in the denominator. The correct identifier counts as correct. Another entity's identifier counts as wrong.
+
+Extraction time runs from receiving the passage to a schema-valid JSON result, averaged over the test set.
+
+A record without a quotation stays DRAFT and does not count as a match. If a figure is below the target, the report is still valid when it includes an error table by subject and by relation type.

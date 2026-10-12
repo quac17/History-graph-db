@@ -10,7 +10,7 @@
 - Bước 6. Kết quả nạp Neo4j bằng MERGE theo mã đã cấp. Cùng mã thì cập nhật, không nhân đôi.
 - Bước 7. Demo chỉ cần cho thấy một danh xưng đã có trong master registry đi vào đúng mã cũ.
 
-**Dữ liệu và công nghệ:** Kho dữ liệu test là đoạn sách giáo khoa hoặc sử liệu được phép dùng về kháng chiến chống quân Nguyên Mông và chiến dịch Bạch Đằng 1288. Gold set do người tạo gắn nhãn chủ thể, từ khóa và quan hệ, không nhìn kết quả mô hình. Gold set được tách thành dev set và test set.
+**Dữ liệu và công nghệ:** Kho thí điểm là các sử liệu đã được gắn nhãn về một sự kiện lịch sử, lấy từ nhiều nguồn. Gold set do người gắn nhãn chủ thể, từ khóa và quan hệ, không nhìn kết quả mô hình. Gold set được tách thành dev set và test set. Threshold và prompt chỉ tinh chỉnh trên dev set. Test set chỉ dùng một lần để ra số đưa vào báo cáo.
 
 Công nghệ dùng trong đồ án:
 
@@ -29,4 +29,18 @@ Công nghệ dùng trong đồ án:
 | Precision của bước khử trùng lặp danh xưng | Chỉ tính các ca hệ thống tự quyết | 90% đến 95% |
 | Thời gian trích xuất | Từ khi nhận chữ đến khi có kết quả đúng schema | Dưới 3 đến 5 giây mỗi trang |
 
-Ca FLAGGED không tính vào mẫu số precision. Bản ghi thiếu đoạn trích ở trạng thái DRAFT. Nếu độ khớp F1 thấp hơn đích, báo cáo vẫn hợp lệ khi có bảng lỗi theo chủ thể và loại quan hệ.
+Độ khớp F1 theo từ khóa tính trên từng từ khóa có giá trị.
+
+- Khớp khi cùng chủ thể, cùng từ khóa, cùng giá trị với gold set, và có đúng đoạn trích.
+- Hệ thống đưa giá trị gold set không có, hoặc có giá trị nhưng không có đoạn trích đúng, thì tính là thừa.
+- Gold set có giá trị mà hệ thống bỏ sót hoặc để null thì tính là thiếu.
+- Cả hai bên đều để null thì không tính là lỗi.
+- Báo riêng từng chủ thể, không gộp một số trung bình.
+
+Độ khớp F1 theo quan hệ chỉ khớp khi đủ bốn điều kiện: đúng mã đầu, đúng loại quan hệ, đúng mã cuối, và có đoạn trích.
+
+Precision của bước khử trùng lặp danh xưng chỉ tính ca hệ thống tự gắn một danh xưng vào một mã đã có. Ca FLAGGED không đưa vào mẫu số. Gắn đúng mã thì tính đúng. Gắn vào mã của một chủ thể khác thì tính sai.
+
+Thời gian trích xuất tính từ lúc nhận đoạn chữ đến lúc có JSON đúng schema, lấy trung bình trên test set.
+
+Bản ghi thiếu đoạn trích ở trạng thái DRAFT, không được tính là khớp. Nếu một chỉ số thấp hơn đích, báo cáo vẫn hợp lệ khi có bảng lỗi theo chủ thể và theo loại quan hệ.

@@ -1,6 +1,6 @@
 # Note — bản đồ thư mục
 
-Tên đề tài: Thiết kế pipeline trích xuất mạng lưới thực thể lịch sử bằng LLM và triển khai hệ thống CSDL lưu trữ.
+Tên đề tài: Triển khai hệ thống CSDL đồ thị tri thức và thiết kế pipeline trích xuất mạng lưới thực thể lịch sử 5W1H bằng LLM.
 
 Người thực hiện: Trần Việt Hoàng. MSSV: 25MSA13219. Giảng viên hướng dẫn: TS Bùi Trung Hiếu.
 

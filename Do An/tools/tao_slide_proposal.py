@@ -392,7 +392,7 @@ def build(spec, prs, total):
     tables = [b for b in blocks if b[0] == "table"]
     if len(blocks) == 2 and len(groups) == 2 and not tables:
         two_columns(slide, blocks)
-    elif spec["num"] == 17 and tables and groups:
+    elif spec["num"] == 18 and tables and groups:
         table_w = Inches(7.45)
         height = Inches(table_height(tables[0][1], table_w))
         add_table(slide, tables[0][1], LEFT, TOP, table_w, height)
@@ -403,8 +403,8 @@ def build(spec, prs, total):
 
 def main():
     slides = parse_khung(KHUNG.read_text(encoding="utf-8"))
-    if len(slides) != 20:
-        raise SystemExit("Khung có %d slide, cần 20" % len(slides))
+    if len(slides) != 21:
+        raise SystemExit("Khung có %d slide, cần 21" % len(slides))
     prs = Presentation()
     prs.slide_width = SLIDE_W
     prs.slide_height = SLIDE_H

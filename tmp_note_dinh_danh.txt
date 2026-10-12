@@ -1,0 +1,94 @@
+TÀI LIỆU ĐẶC TẢ THIẾT KẾ KỸ THUẬT:
+QUY CHUẨN ĐỊNH DANH THỰC THỂ & TỔ CHỨC CƠ SỞ DỮ LIỆU ĐA MẪU
+Tổng hợp Thiết kế Khóa Định danh (Opaque Keys) & Bố trí CSDL Đa mẫu (PostgreSQL - Neo4j - ChromaDB) cho Mạng lưới Tri thức Lịch sử
+
+1. PHÂN TÍCH RỦI RO & BẢN CHẤT CỦA MÃ ĐỊNH DANH LỊCH SỬ
+1.1. Rủi ro khi gán mốc thời điểm sự kiện vào ID nhân vật (Ví dụ: person_TranQuocTuan_1288)
+Trong kỹ nghệ dữ liệu, việc đưa thời điểm sự kiện vào khóa định danh nhân vật (như gắn số 1288 vào Trần Quốc Tuấn) là một sai lầm nghiêm trọng về mô hình hóa (Anti-pattern). Sự sai lệch này bắt nguồn từ việc nhập nhằng giữa Thực thể Con người (Entity) và Biến cố Thời - Không (Event):
+Xung đột vòng đời nhân vật: Trần Quốc Tuấn sinh khoảng năm 1228, mất năm 1300. Cuộc đời ông gắn liền với 3 cuộc kháng chiến chống Nguyên Mông (1258, 1285, 1288) và soạn thảo Hịch tướng sĩ (1284). Năm 1288 chỉ là một lát cắt sự kiện (Trận Bạch Đằng), hoàn toàn không thể đại diện cho toàn bộ sự tồn tại của nhân vật.
+Nguy cơ vỡ vụn thực thể (Entity Fragmentation): Khi hệ thống AI bóc tách các đoạn sử liệu về năm 1285 hay 1258, nếu theo quy tắc cũ nó sẽ tự động sinh ra các mã mới như person_TranQuocTuan_1285 hoặc person_TranQuocTuan_1258. Hậu quả là 1 nhân vật bị phân mảnh thành nhiều nút độc lập trên Graph DB, phá hủy năng lực liên kết xuyên suốt cuộc đời nhân vật.
+Vi phạm tính bất biến của khóa (Key Immutability): Khóa chính đại diện cho một con người phải tồn tại bất biến, không được phụ thuộc vào bất kỳ một biến cố cụ thể nào mà nhân vật đó từng tham gia.
+1.2. Rủi ro khi gán năm sinh vào ID trước vấn nạn Dị bản Sử liệu (Ví dụ: tranquoctuan_1228 vs tranhungdao_1230)
+Ngay cả khi thay thế năm sự kiện bằng năm sinh (ví dụ: tranquoctuan_1228), hệ thống vẫn đối mặt với rủi ro đổ vỡ dữ liệu do đặc thù học thuật của Khoa học Xã hội & Nhân văn:
+Hiện tượng dị bản và bất đồng niên đại trong sử liệu: Năm sinh của các nhân vật trung đại thường có sự mâu thuẫn giữa các bộ sử, gia phả, hoặc do sai lệch quy đổi giữa lịch Can Chi âm lịch và Dương lịch. Trần Quốc Tuấn có nguồn chép sinh năm 1228, nhưng nhiều công trình khảo cứu khác ghi nhận là 1230, 1231 hoặc 1232.
+Kịch bản 'vỡ trận' của Pipeline trích xuất tự động: Khi nạp văn bản từ Đại Việt Sử ký Toàn thư (ghi sinh 1228), LLM tạo nút tranquoctuan_1228. Khi nạp một tài liệu khảo cứu khác gọi ông là Hưng Đạo Vương (sinh 1231), LLM tạo nút tranhungdao_1231. Hai nút này bị coi là hai người hoàn toàn xa lạ trên Graph DB, dẫn tới việc sự kiện năm 1284 nối vào nút này, sự kiện 1288 nối vào nút kia.
+Nguyên lý kỹ nghệ: Tách biệt hoàn toàn 'Định danh (Identity)' khỏi 'Thuộc tính học thuật còn tranh luận (Contested Attributes)'. Năm sinh là một thuộc tính tri thức cần nghiên cứu, không phải căn cước kỹ thuật.
+2. GIẢI PHÁP: CHUẨN HÓA MÃ ĐỊNH DANH MỜ (OPAQUE SURROGATE KEYS)
+Để giải quyết triệt để vấn đề trên, hệ thống áp dụng phương pháp Khóa thay thế / Khóa định danh mờ (Surrogate / Opaque Identifier) theo đúng tiêu chuẩn của các Cơ sở Tri thức Mở Toàn cầu (Wikidata, VIAF, BiographySampo).
+2.1. Ưu thế vượt trội của Khóa Định danh dạng P00001, EV00001
+Bảo toàn tính bất biến tuyệt đối: Mã định danh kỹ thuật độc lập 100% với tên gọi, danh xưng, năm sinh, chức tước. Nếu sử học đính chính năm sinh hay phát hiện thêm thụy hiệu, mã ID trong toàn bộ hệ thống CSDL vẫn giữ nguyên.
+Chuẩn hóa theo Wikidata: Wikidata quản lý Trần Hưng Đạo bằng mã Q716945. Mọi tên gọi (Trần Quốc Tuấn, Hưng Đạo Đại Vương, Tiết chế Quốc công, Tran Hung Dao) chỉ là các nhãn (Labels/Aliases) đính kèm mã Q này.
+Xử lý hoàn hảo bài toán Đa danh xưng & Đồng âm: Một người có 10 tên tự, biệt hiệu khác nhau đều trỏ về P00001. Ba nhân vật lịch sử khác nhau cùng mang tên 'Nguyễn Huệ' được phân tách minh bạch thành P00101, P00205, P00892.
+Tối ưu hóa hiệu năng lưu trữ và truy vấn: Chuỗi ký tự ngắn, cố định độ dài (Fixed-length alphanumeric) giúp chỉ mục B-Tree (PostgreSQL) và bộ nhớ đồ thị (Neo4j) duyệt nhanh gấp nhiều lần so với chuỗi văn bản dài có dấu.
+2.2. Bảng Quy ước Tiền tố Định danh (Namespace Prefix) cho 8 Chủ thể
+
+3. THIẾT KẾ & TỔ CHỨC CƠ SỞ DỮ LIỆU ĐA MẪU (POLYGLOT PERSISTENCE)
+3.1. Vai trò Trọng yếu của PostgreSQL: Tại sao Đồ thị (Neo4j) và Véc-tơ (ChromaDB) là chưa đủ?
+Trong kiến trúc hệ thống, mặc dù Neo4j xử lý các quan hệ mạng lưới đa nhảy và ChromaDB xử lý tìm kiếm tương đồng ngữ nghĩa, PostgreSQL đóng vai trò sống còn là Sổ bộ Đăng bạ Gốc (Master Authority Registry) & Nguồn Chân lý Duy nhất (Single Source of Truth) nhờ 5 nhiệm vụ then chốt:
+Cấp phát & Kiểm soát Mã ID tập trung (Central Authority Registry): Nhờ tính toàn vẹn giao dịch chuẩn ACID, PostgreSQL đảm bảo cơ chế sinh ID tự tăng an toàn (Sequences), không bao giờ xảy ra xung đột hay trùng lặp khóa khi nhiều tiến trình AI bóc tách nạp liệu song song.
+Tăng tốc tối đa bước Khử trùng lặp (Entity Resolution Acceleration): Trước khi gọi tới mô hình LLM tốn kém hoặc duyệt đồ thị Neo4j phức tạp, hệ thống tra cứu bảng từ điển danh xưng (entity_aliases) trên PostgreSQL. Nhờ chỉ mục B-Tree và mở rộng pg_trgm (Fuzzy Trigram Matching), tốc độ đối khớp đạt dưới 5ms.
+Điều phối Liên kết Khóa Đa mẫu (Cross-Engine Catalog Index): PostgreSQL là cầu nối duy nhất quản lý ánh xạ 3 chiều: Tài liệu nguồn thô (PostgreSQL) <---> Thực thể tri thức (Neo4j Graph Node) <---> Đoạn trích véc-tơ (ChromaDB Vector Chunk).
+Quản lý Quy trình Kiểm duyệt Sư phạm (Curation & Validation Workflow): Cho phép các chuyên gia sử học và giáo viên phê duyệt hoặc hiệu chỉnh dữ liệu do AI bóc tách thông qua các trạng thái nghiệp vụ (DRAFT -> VERIFIED -> FLAGGED) cùng chỉ số độ tin cậy (confidence_score).
+Khả năng Tái thiết lập Toàn diện Hệ thống (Disaster Recovery & Re-indexing): Khi cần nâng cấp mô hình nhúng mới (Embedding Model) hoặc cấu trúc lại Neo4j Graph, toàn bộ dữ liệu có thể được tái tạo tự động 100% từ kho dữ liệu bảng chuẩn được bảo vệ nghiêm ngặt trên PostgreSQL.
+3.2. Thiết kế Lược đồ Bảng PostgreSQL Thực tế (DDL Schema)
+Dưới đây là 3 bảng cốt lõi được triển khai trên PostgreSQL để quản trị mạng lưới tri thức:
+-- 1. BẢNG ĐĂNG BẠ THỰC THỂ GỐC (MASTER ENTITY REGISTRY)
+CREATE TABLE dim_entities (
+    entity_id VARCHAR(20) PRIMARY KEY,          -- P00001, EV00001, GRP0001...
+    entity_type VARCHAR(30) NOT NULL,           -- Person, Event, Place, Group, Artifact...
+    canonical_name VARCHAR(255) NOT NULL,       -- "Trần Quốc Tuấn", "Chiến thắng Bạch Đằng 1288"
+    wikidata_id VARCHAR(50),                    -- "Q716945" (Liên kết dữ liệu mở quốc tế)
+    verification_status VARCHAR(20) DEFAULT 'DRAFT', -- DRAFT, VERIFIED, FLAGGED
+    confidence_score NUMERIC(4,3) DEFAULT 1.000,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2. BẢNG TỪ ĐIỂN DANH XƯNG & BÍ DANH (TRA CỨU KHỬ TRÙNG LẶP SIÊU TỐC)
+CREATE TABLE entity_aliases (
+    alias_id SERIAL PRIMARY KEY,
+    entity_id VARCHAR(20) NOT NULL REFERENCES dim_entities(entity_id) ON DELETE CASCADE,
+    alias_name VARCHAR(255) NOT NULL,           -- "Hưng Đạo Đại Vương", "Thanh Cung", "Tố Như"
+    alias_type VARCHAR(50),                     -- BirthName, CourtesyName, HonorificTitle...
+    source_citation VARCHAR(255),               -- "Đại Việt Sử ký Toàn thư"
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX idx_entity_aliases_name ON entity_aliases(alias_name);
+CREATE EXTENSION IF NOT EXISTS pg_trgm;
+CREATE INDEX idx_entity_aliases_trgm ON entity_aliases USING gin (alias_name gin_trgm_ops);
+
+-- 3. BẢNG QUẢN TRỊ NGUỒN TÀI LIỆU SỬ LIỆU THÔ (DOCUMENT CATALOG)
+CREATE TABLE source_documents (
+    source_id VARCHAR(20) PRIMARY KEY,          -- SRC0001
+    title VARCHAR(500) NOT NULL,                -- "Đại Việt Sử ký Toàn thư"
+    author_compiler VARCHAR(255),               -- "Ngô Sĩ Liên"
+    compilation_era VARCHAR(100),               -- "Thế kỷ XV (Nhà Lê)"
+    source_perspective VARCHAR(50),             -- DomesticOfficial, ForeignHostile...
+    storage_path VARCHAR(500),                  -- Đường dẫn tệp văn bản thô
+    ingested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+3.3. Ma trận Phân định Trách nhiệm giữa 3 Hệ CSDL (PostgreSQL - Neo4j - ChromaDB)
+
+4. QUY TRÌNH PHỐI HỢP DỮ LIỆU ĐẦU CUỐI (END-TO-END PIPELINE)
+Khi một văn bản sử liệu mới được đưa vào hệ thống, quy trình điều phối giữa 3 CSDL diễn ra qua 4 bước khép kín:
+Bước 1: Tiếp nhận & Tra cứu Khử trùng lặp trên PostgreSQL: LLM trích xuất được cụm từ 'Hưng Đạo Đại Vương'. Hệ thống truy vấn bảng entity_aliases trên PostgreSQL qua chỉ mục Trigram. PostgreSQL phản hồi: Khớp với P00001 (Độ tương đồng 100%). Nếu là thực thể mới hoàn toàn, PostgreSQL tự động sinh mã mới qua Sequence.
+Bước 2: Cắt lát Ngữ nghĩa & Tiêm Khóa vào ChromaDB: Đoạn văn bản chứa câu chuyện được cắt lát ngữ nghĩa (Semantic Chunking). Khi lưu vào ChromaDB, trường metadata được gắn chặt chẽ: metadata={'linked_entity_ids': ['P00001', 'EV00001'], 'source_id': 'SRC0001'}.
+Bước 3: Nạp Nút & Cạnh Quan hệ vào Neo4j: Hệ thống thực thi câu lệnh Cypher tạo hoặc cập nhật nút (:Person {id: 'P00001', name: 'Trần Quốc Tuấn'}), đồng thời tạo cạnh [:COMMANDED {role: 'Tiết chế Quốc công'}] nối tới nút (:Event {id: 'EV00001'}).
+Bước 4: Thực thi Truy vấn Lai Triệt tiêu Ảo giác (Hybrid Retrieval): Khi người học hỏi: 'Ai chỉ huy trận đánh năm 1288 và kế sách là gì?', hệ thống truy vấn Vector DB để lấy ngữ cảnh sâu, đồng thời dùng entity_id='EV00001' để tra cứu Neo4j lấy toàn bộ thực thể chính xác làm mỏ neo (Fact-Anchor), ngăn chặn 100% hiện tượng LLM bịa đặt sự kiện.
+--- TABLE 0 ---
+Mục đích tài liệu: Tài liệu này hệ thống hóa toàn bộ giải pháp kỹ thuật giải quyết 3 câu hỏi kiến trúc cốt lõi trong dự án: (1) Khắc phục rủi ro phân mảnh thực thể khi sử dụng mã tự nhiên mang mốc thời gian; (2) Thiết lập quy chuẩn mã định danh mờ (Opaque Surrogate Key) cho 8 nhóm chủ thể theo chuẩn quốc tế; và (3) Thiết kế vai trò, lược đồ bảng quản trị trên PostgreSQL đóng vai trò Sổ bộ Đăng bạ Trung tâm (Master Authority Registry) điều phối trong hệ sinh thái CSDL Đa mẫu.
+--- TABLE 1 ---
+Chủ thể (Entity) | Tiền tố Chuẩn | Độ dài Chuẩn | Ví dụ Mã ID | Tên Hiển thị (Canonical Name)
+1. Con người (Person) | P_ | P + 5 số | P00001 | Trần Quốc Tuấn (Hưng Đạo Đại Vương)
+2. Sự kiện (Event) | EV_ | EV + 5 số | EV00001 | Chiến thắng Bạch Đằng năm 1288
+3. Tổ chức / Thể chế (Group) | GRP_ | GRP + 4 số | GRP0001 | Triều đình Nhà Trần (Đại Việt)
+4. Không gian / Địa lý (Place) | LOC_ | LOC + 4 số | LOC0001 | Sông Bạch Đằng (Quảng Ninh/Hải Phòng)
+5. Thời gian / Niên đại (Time) | TIM_ | TIM + 4 số | TIM0001 | Năm Mậu Tý (Niên hiệu Trùng Hưng 4 - 1288)
+6. Hiện vật / Di sản (Artifact) | ART_ | ART + 4 số | ART0001 | Bãi cọc gỗ Yên Giang
+7. Kế sách / Tư tưởng (Concept) | CON_ | CON + 4 số | CON0001 | Kế sách cọc ngầm đón nước thủy triều
+8. Nguồn sử liệu (Source) | SRC_ | SRC + 4 số | SRC0001 | Đại Việt Sử ký Toàn thư (Bản kỷ quyển 5)
+--- TABLE 2 ---
+Hệ CSDL | Vai trò trong Kiến trúc | Loại Dữ liệu Quản lý | Cơ chế Tương tác Liên thông
+PostgreSQL (Relational DB) | Sổ bộ Đăng bạ Gốc & Quản trị Hệ thống (Master Registry & Metadata Management) | Mã ID mờ (P00001, EV00001), Bảng tra cứu Alias, Tài khoản, Nhật ký xử lý, Trạng thái kiểm duyệt. | Cung cấp ID chuẩn cho Neo4j và ChromaDB; xác thực danh xưng trước khi bóc tách đồ thị.
+Neo4j (Graph DB) | Mạng lưới Tri thức & Suy luận Logic Đa nhảy (Knowledge Graph & Multi-hop Traversal) | Nút thực thể (:Person, :Event...), Cạnh quan hệ ngữ nghĩa ([:COMMANDED], [:TOOK_PLACE_AT]), Mô hình hóa cạnh mâu thuẫn (:CONTRADICTS). | Sử dụng entity_id từ PostgreSQL làm khóa Nút; trả về mạng lưới quan hệ làm mỏ neo sự kiện (Fact-Anchor).
+ChromaDB (Vector DB) | Không gian Ngữ nghĩa Văn bản Sâu (Semantic Dense Vector Space) | Các đoạn văn bản sử liệu cắt lát (Semantic Chunks) được mã hóa thành vector 768/1024 chiều. | Lưu trực tiếp entity_id vào trường metadata.linked_entity_ids để thực thi truy vấn lai (Hybrid Retrieval).

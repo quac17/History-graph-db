@@ -3,9 +3,9 @@
 
 ## 1. THÔNG TIN CHUNG
 
-**Đề tài:** Thiết kế pipeline trích xuất mạng lưới thực thể lịch sử bằng LLM và triển khai hệ thống CSDL lưu trữ.
+**Đề tài:** Triển khai hệ thống CSDL đồ thị tri thức và thiết kế pipeline trích xuất mạng lưới thực thể lịch sử 5W1H bằng LLM.
 
-*Designing an LLM Pipeline to Extract a Network of Historical Entities and Implementing a Storage Database System.*
+*Implementing a Knowledge Graph Database System and Designing an LLM Pipeline to Extract a 5W1H Network of Historical Entities.*
 
 **Họ tên và MSSV:** Trần Việt Hoàng, 25MSA13219.
 

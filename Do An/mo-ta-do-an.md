@@ -1,6 +1,6 @@
 # Đồ án trong dự án
 
-Tên đề tài: Thiết kế pipeline trích xuất mạng lưới thực thể lịch sử bằng LLM và triển khai hệ thống CSDL lưu trữ.
+Tên đề tài: Triển khai hệ thống CSDL đồ thị tri thức và thiết kế pipeline trích xuất mạng lưới thực thể lịch sử 5W1H bằng LLM.
 
 Người thực hiện: Trần Việt Hoàng. MSSV: 25MSA13219. Giảng viên hướng dẫn: TS Bùi Trung Hiếu.
 
@@ -22,19 +22,29 @@ Nguồn đang dùng:
 
 ## 1. Đồ án là gì
 
-Đồ án thiết kế pipeline trích xuất mạng lưới thực thể lịch sử bằng LLM và triển khai hệ thống CSDL lưu trữ. Về kỹ thuật, đó là hạ tầng multi-model database (graph, vector và relational database) và pipeline trích xuất thực thể và quan hệ theo hệ thống chủ thể và từ khóa.
+Đồ án triển khai hệ thống CSDL đồ thị tri thức và thiết kế pipeline trích xuất mạng lưới thực thể lịch sử 5W1H bằng LLM. Về kỹ thuật, đó là hạ tầng multi-model database (graph, vector và relational database) và pipeline trích xuất thực thể và quan hệ theo hệ thống chủ thể và từ khóa.
 
 Đồ án là phần mở đầu của dự án. Sản phẩm của đồ án là mạng lưới thực thể trên knowledge graph, không phải chatbot cho học sinh. Thời lượng của đồ án và của dự án ghi ở mục 3 và mục 11.
 
 ## 2. Bài toán
 
-Chương trình môn Lịch sử năm 2018 yêu cầu người học tìm hiểu nguồn và tư duy về sự kiện. Cách hỏi 5W1H trên lớp vẫn nằm ở phiếu và bài chiếu.
+Chương trình môn Lịch sử 2018 yêu cầu người học nêu sự kiện có thời gian và địa điểm, chỉ ra tư liệu, và nối nguyên nhân với diễn biến. Trên lớp, bài giảng lịch sử nằm lại trong vở, khó dùng lại và không đo được độ bám nguồn.
 
-Thư viện số và phần mềm trích dẫn giữ tên sách, tác giả, năm xuất bản. Chúng không trả lời một người đã tham gia sự kiện nào, sự kiện diễn ra ở đâu, diễn ra bằng cách nào.
+Thư viện số tìm được cuốn sách nhưng không trả lời được câu bên trong tệp, ví dụ ai có mặt ở trận Bạch Đằng 1288.
 
-LLM trả lời trôi chảy nhưng có thể thêm niên đại hoặc nhân vật không có trong nguồn, vì không có kho dữ kiện để đối chiếu.
+LLM trả lời trôi chảy nhưng có thể thêm năm hoặc người không có trong nguồn. Một nhân vật có nhiều tên gọi nên kho dễ bị nhân đôi.
 
 Cùng một sự kiện có thể được hai nguồn kể khác nhau. Kho dữ liệu không được xóa một nguồn để chỉ giữ một đáp án.
+
+Vì vậy, thực tiễn yêu cầu cần có một hệ thống giải quyết các vấn đề này.
+
+Mục tiêu chung của đồ án là một pipeline đo được:
+
+- Từ văn bản sử tiếng Việt, tới bản ghi các chủ thể đã xác lập quan hệ bằng cách trích xuất tri thức từ đoạn trích bằng LLM, tới knowledge graph tổng quan xác lập quan hệ của các chủ thể.
+- Gold set dữ liệu mẫu do con người gắn nhãn.
+- O1. Chốt schema của hệ thống chủ thể và từ khóa, và dựng ba database chạy bằng Docker.
+- O2. Dựng các API và pipeline để trích xuất, khử trùng lặp danh xưng, nạp graph, cùng giao diện demo cho người vận hành.
+- O3. Lập gold set khoảng 150 đến 200 đoạn sử liệu do con người gắn nhãn, rồi đo độ khớp F1 và precision của việc trích xuất data trên test set.
 
 ## 3. Đồ án nằm ở đâu trong dự án
 
@@ -63,7 +73,9 @@ Chưa làm trong đồ án:
 - Edge đồng thuận hoặc mâu thuẫn giữa hai nguồn.
 - Chatbot, câu hỏi gợi mở, thử trên lớp.
 
-Đầu vào của đồ án là văn bản đã có chữ, không cần OCR.
+Đầu vào của đồ án là văn bản sử liệu tiếng Việt. Không cần OCR.
+
+Kho thí điểm là các sử liệu đã được gắn nhãn về một sự kiện lịch sử, lấy từ nhiều nguồn.
 
 ## 5. Tính mới và đóng góp
 
@@ -224,9 +236,17 @@ Chỉ số mang ra hội đồng là chỉ số của đồ án, không lấy ch
 | Thời gian trích xuất    | Dưới 3 đến 5 giây mỗi trang |
 
 
-Gold set do người gắn nhãn, không do chính mô hình sinh ra rồi tự chấm.
+Các mốc trên là đích đặt ra, chưa phải kết quả đã đo.
 
-Một từ khóa hoặc một quan hệ được tính đúng khi khớp nhãn và có đoạn nguồn. Graph không được coi là đúng tuyệt đối nếu bỏ qua các bản DRAFT.
+Gold set do người gắn nhãn chủ thể, từ khóa và quan hệ, không nhìn kết quả mô hình. Tập này tách thành dev set và test set. Threshold và prompt chỉ tinh chỉnh trên dev set. Test set chỉ dùng một lần để ra số báo cáo.
+
+Độ khớp F1 theo từ khóa tính trên từng từ khóa có giá trị. Khớp khi cùng chủ thể, cùng từ khóa, cùng giá trị và có đúng đoạn trích. Giá trị thừa, giá trị bị bỏ sót, và ô null ở cả hai bên được tính riêng. Báo riêng từng chủ thể.
+
+Độ khớp F1 theo quan hệ chỉ khớp khi đủ bốn điều kiện: đúng mã đầu, đúng loại quan hệ, đúng mã cuối, và có đoạn trích.
+
+Precision của bước khử trùng lặp danh xưng chỉ tính ca hệ thống tự gắn danh xưng vào một mã đã có. Ca FLAGGED không đưa vào mẫu số. Gắn đúng mã thì tính đúng. Gắn nhầm sang chủ thể khác thì tính sai.
+
+Thời gian trích xuất là trung bình trên test set, từ lúc nhận đoạn chữ đến lúc có JSON đúng schema. Bản ghi thiếu đoạn trích ở trạng thái DRAFT và không được tính là khớp. Nếu thấp hơn đích, báo cáo vẫn hợp lệ khi có bảng lỗi theo chủ thể và theo loại quan hệ.
 
 ## 13. Chỉ số của các giai đoạn sau trong dự án
 

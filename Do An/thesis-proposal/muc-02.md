@@ -1,12 +1,15 @@
 ## 2. TỔNG QUAN NGHIÊN CỨU
 
-**Vấn đề và động cơ:** Chương trình môn Lịch sử 2018 yêu cầu người học nêu sự kiện có thời gian và địa điểm, chỉ ra tư liệu, và nối nguyên nhân với diễn biến. Trên lớp, phiếu 5W1H nằm lại trong vở, không dùng lại và không đo được độ bám nguồn. Thư viện số tìm được cuốn sách nhưng không trả lời được câu bên trong tệp, ví dụ ai có mặt ở trận Bạch Đằng 1288. LLM trả lời trôi chảy nhưng có thể thêm năm hoặc người không có trong nguồn. Một nhân vật có nhiều tên gọi nên kho dễ bị nhân đôi. Đồ án làm một pipeline đo được: từ văn bản sử tiếng Việt, qua bản ghi chủ thể và quan hệ có đoạn trích, tới knowledge graph, với gold set do người gắn nhãn.
+**Vấn đề và động cơ:** Chương trình môn Lịch sử 2018 yêu cầu người học nêu sự kiện có thời gian và địa điểm, chỉ ra tư liệu, và nối nguyên nhân với diễn biến. Trên lớp, bài giảng lịch sử nằm lại trong vở, khó dùng lại và không đo được độ bám nguồn. Thư viện số tìm được cuốn sách nhưng không trả lời được câu bên trong tệp, ví dụ ai có mặt ở trận Bạch Đằng 1288. LLM trả lời trôi chảy nhưng có thể thêm năm hoặc người không có trong nguồn. Một nhân vật có nhiều tên gọi nên kho dễ bị nhân đôi. Vì vậy, thực tiễn yêu cầu cần có một hệ thống giải quyết các vấn đề này.
 
-**Mục tiêu và câu hỏi nghiên cứu:** Mục tiêu chung là xây và đo một pipeline, trong đó sử liệu tiếng Việt đã có chữ được trích xuất thành bản ghi chủ thể và quan hệ, danh xưng của cùng một người được gộp về một node, và kết quả được nạp vào knowledge graph.
+**Mục tiêu và câu hỏi nghiên cứu:** Mục tiêu chung của đồ án là một pipeline đo được:
+
+- Từ văn bản sử tiếng Việt, tới bản ghi các chủ thể đã xác lập quan hệ bằng cách trích xuất tri thức từ đoạn trích bằng LLM, tới knowledge graph tổng quan xác lập quan hệ của các chủ thể.
+- Gold set dữ liệu mẫu do con người gắn nhãn.
 
 - O1. Chốt schema của hệ thống chủ thể và từ khóa (tám chủ thể cố định, bộ từ khóa, mã định danh mờ do PostgreSQL cấp, danh mục phân loại, kiểu quan hệ) và dựng ba database chạy bằng Docker.
-- O2. Dựng bốn API, pipeline trích xuất–khử trùng lặp danh xưng–nạp graph, và giao diện demo cho người vận hành.
-- O3. Lập gold set khoảng 150 đến 200 đoạn sử liệu do người gắn nhãn, rồi đo độ khớp F1 và precision trên test set.
+- O2. Dựng các API và pipeline để: trích xuất, khử trùng lặp danh xưng, nạp graph. Cùng với đó là giao diện demo cho người vận hành.
+- O3. Lập gold set khoảng 150 đến 200 đoạn sử liệu do con người gắn nhãn, rồi đo độ khớp F1 và precision của việc trích xuất data trên test set.
 
 Câu hỏi nghiên cứu:
 
@@ -32,8 +35,8 @@ Pipeline trích xuất:
 
 Nằm trong đồ án:
 
-- Nhận đầu vào là văn bản tiếng Việt.
-- Kho thí điểm là các sử liệu dựa trên một sự kiện lịch sử được lấy từ nhiều nguồn.
+- Nhận đầu vào là văn bản sử liệu tiếng Việt.
+- Kho thí điểm là các sử liệu đã được gắn nhãn về một sự kiện lịch sử, lấy từ nhiều nguồn.
 - Tám chủ thể đã chốt: Person, Group, Event, Place, TimeSpan, Artifact, Concept, Source, cùng các quan hệ giữa chúng.
 - Neo4j có dữ liệu demo. PostgreSQL là master registry: cấp mã mờ, giữ danh xưng, nguồn và log. ChromaDB dựng schema và vài bản ghi mẫu.
 - Bốn endpoint: `/extract-5w1h`, `/resolve-entity`, `/ingest-graph`, `/entities/{entity_id}`, và demo Streamlit.

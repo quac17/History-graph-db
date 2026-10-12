@@ -23,5 +23,9 @@ venv/
 *.docx
 *.docm
 
+# Slide và PDF
+*.pptx
+*.pdf
+
 # File tạm của Office
 ~$*
