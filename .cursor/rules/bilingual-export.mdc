@@ -1,0 +1,22 @@
+---
+description: Sau khi duyệt Markdown tiếng Việt, dịch Anh và xuất Word hai thứ tiếng
+alwaysApply: true
+---
+
+# Xuất Word hai thứ tiếng
+
+Chỉ xuất Word khi người thực hiện đã duyệt nội dung file `.md` tiếng Việt, hoặc khi được yêu cầu rõ là xuất Word / dịch và xuất.
+
+1. Thêm hoặc sửa nội dung: sửa `.md` tiếng Việt trước. Chưa xuất Word, chưa dịch Anh.
+2. Người thực hiện duyệt bản Việt.
+3. Sau khi duyệt: dịch sang `.en.md` cùng tên, cùng cấu trúc mục, bảng và số liệu.
+4. Xuất Word từng phần đã đổi: `<ten>.vi.docx` từ `.md`, `<ten>.en.docx` từ `.en.md`. Không đọc lại toàn bộ Markdown để tạo một file lớn.
+5. Ghép file lớn từ các Word từng phần:
+   `python "Do An/tools/ghep_docx.py" --doc thesis-proposal --lang both`
+   `python "Do An/tools/ghep_docx.py" --doc thesis --lang both`
+   Thứ tự ghép nằm ở `manifest.json` trong từng thư mục. File đầu làm nền (khổ trang, style); các file sau chỉ chép thân bài.
+6. Sửa lại nội dung đã duyệt: sửa bản Việt của đúng mục hoặc chương, cập nhật bản Anh, xuất lại Word phần đó, rồi chạy lại lệnh ghép.
+
+Bản Word tiếng Việt dịch tiêu đề mục của template sang tiếng Việt, ví dụ "1. THÔNG TIN CHUNG", "CHƯƠNG 1: GIỚI THIỆU". Bản tiếng Anh giữ nguyên tiêu đề template.
+
+Không xuất Word từ `Do An/proposal/proposal.md`.

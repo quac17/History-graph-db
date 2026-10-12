@@ -1,0 +1,25 @@
+{
+  "name": "thesis-proposal",
+  "vi": {
+    "output": "thesis-proposal.vi.docx",
+    "parts": [
+      {"file": "muc-01.vi.docx", "page_break": false},
+      {"file": "muc-02.vi.docx", "page_break": false},
+      {"file": "muc-03.vi.docx", "page_break": false},
+      {"file": "muc-04.vi.docx", "page_break": false},
+      {"file": "muc-05.vi.docx", "page_break": false},
+      {"file": "muc-06.vi.docx", "page_break": false}
+    ]
+  },
+  "en": {
+    "output": "thesis-proposal.en.docx",
+    "parts": [
+      {"file": "muc-01.en.docx", "page_break": false},
+      {"file": "muc-02.en.docx", "page_break": false},
+      {"file": "muc-03.en.docx", "page_break": false},
+      {"file": "muc-04.en.docx", "page_break": false},
+      {"file": "muc-05.en.docx", "page_break": false},
+      {"file": "muc-06.en.docx", "page_break": false}
+    ]
+  }
+}

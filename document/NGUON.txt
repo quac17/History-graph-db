@@ -1,0 +1,38 @@
+Danh mục tài liệu đã tải cho proposal chương 1 và chương 2.
+
+Chương trình và tập huấn tại Việt Nam
+1. GDPT-2018-mon-Lich-su.pdf
+   Chương trình giáo dục phổ thông môn Lịch sử, Thông tư 32/2018/TT-BGDĐT.
+   Nguồn: https://dienbien.edu.vn/uploads/doi-moi-chuong-trinh-gdpt/8ct_-lich-su.pdf
+2. HNUE-tap-huan-mon-Lich-su-GDPT-2018.pdf
+   Tài liệu tập huấn môn Lịch sử, Trường Đại học Sư phạm Hà Nội.
+   Nguồn: https://dtbdtx.hnue.edu.vn/Portals/0/Tai%20lieu%20tap%20huan%20mon%20Lich%20su.pdf
+
+Tư duy lịch sử và học tập truy vấn (được bản chiến lược nhân văn số dẫn qua van Boxtel và cộng sự)
+3. vanDrie-vanBoxtel-2008-Historical-Reasoning.pdf
+   https://link.springer.com/content/pdf/10.1007/s10648-007-9056-1.pdf
+4. vanBoxtel-vanDrie-2018-Historical-Reasoning.pdf
+   https://pure.uva.nl/ws/files/55075139/van_Boxtel_van_Drie_2018_Historical_Reasoning.pdf
+5. vanBoxtel-Voet-Stoel-2021-Inquiry-in-history.pdf
+   https://www.tecolab.ugent.be/pubs/2021_van_Boxtel_Voet_Stoel_Inquiry%20in%20history.pdf
+
+Di sản số và dự án Pure Land (Đôn Hoàng), được bản chiến lược nhắc
+6. Kenderdine-2013-Pure-Land-Inhabiting-Mogao.pdf
+   https://wiki.epfl.ch/cultural.data.sculpting/documents/curator%20journal%202013%20kenderdine.pdf
+7. Kenderdine-Chan-Shaw-Pure-Land-Embodied-Museography.pdf
+   https://www.jeffreyshawcompendium.com/wp-content/uploads/2015/10/Pure-Land-Futures-for-Embodied-Museography.pdf
+
+Kỹ thuật truy xuất và tiếng Việt
+8. Lewis-2020-RAG-arXiv-2005.11401.pdf
+   https://arxiv.org/pdf/2005.11401.pdf
+9. Edge-2024-GraphRAG-arXiv-2404.16130.pdf
+   https://arxiv.org/pdf/2404.16130.pdf
+10. Vietnamese-History-Textbook-KG-arXiv-2609.00763.pdf
+    Đồ thị tri thức từ sách giáo khoa Lịch sử tiếng Việt.
+    https://arxiv.org/pdf/2609.00763.pdf
+11. PhoBERT-EMNLP-2020.pdf
+    https://aclanthology.org/2020.findings-emnlp.92.pdf
+
+Không tải được file PDF
+- CIDOC CRM (ISO 21127): các đường dẫn PDF thử trên cidoc-crm.org trả về 404. Trang chuẩn: https://cidoc-crm.org/
+- Adjacent Possible (Kauffman, Johnson), quyết định luận công nghệ (Chris Anderson), diễn giải học vật chất (Don Ihde) và công cụ I Sho U: bản chiến lược nhắc như lý thuyết, không có một PDF mở ổn định để tải. Các mục này không thuộc phạm vi xây dựng của nguyên mẫu.

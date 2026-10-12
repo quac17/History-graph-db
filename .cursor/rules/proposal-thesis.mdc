@@ -1,0 +1,57 @@
+---
+description: Template, cấu trúc và nguồn Markdown cho thesis proposal và thesis
+alwaysApply: true
+---
+
+# Proposal và thesis
+
+Template đang dùng nằm ở `template/`. Mọi tài liệu mới tạo bản base theo hai file này.
+
+- Thesis proposal: `template/Thesis_Proposal_Form.docx`. Đúng sáu mục: General Information; Research Overview; Proposed Methodology; Expected Deliverables; Resource Requirements & Risk Management; 12-Week Execution Timeline. Kế hoạch 12 tuần, mốc giữa kỳ ở tuần 6. Không thêm chương ngoài form.
+- Thesis: `template/Thesis_Framework.docx`. Front matter: Abstract; Table of Contents; List of Figures; List of Tables; List of Abbreviations. Sáu chương: Introduction; Theoretical Background & Related Work; System Design / Methodology; Implementation; Evaluation and Results; Conclusion and Future Work. Cuối: References (IEEE) và Appendices.
+- Track Hybrid, trọng tâm khoảng 70% Track A. Chương 3 lấy 3.1–3.3 Track A làm chính, thêm dữ liệu và cách trích xuất của Track B ở mức vừa đủ.
+
+Cấu trúc mục con của thesis, đúng template:
+
+- 1.1 Problem & Motivation; 1.2 Problem Statement, Research Objectives & Questions; 1.3 Scope and Limitations; 1.4 Research Contributions
+- 2.1 Literature Review / Related Work; 2.2 Theoretical Foundations & Core Technologies; 2.3 Research Gap
+- 3.1 Overall System Architecture; 3.2 Subsystem & Information Flow; 3.3 AI Processing Pipeline (Track A), kèm Data Generation & Preprocessing (Track B, vừa đủ)
+- 4.1 Development Environment & Technology Stack; 4.2 Implementation Pipeline; 4.3 Key Techniques
+- 5.1 Evaluation Setup & Metrics; 5.2 Results & Interpretation; 5.3 Threats to Validity & Limitations
+- 6.1 Conclusion; 6.2 Future Work
+
+Nội dung chỉ sửa trong Markdown từng mục hoặc từng chương. File Word từng phần xuất từ Markdown đó, không sửa Word như bản gốc. File Word lớn được ghép từ các file Word từng phần bằng `Do An/tools/ghep_docx.py`, không tạo cả tài liệu một lượt từ một file Markdown.
+
+- Thesis proposal: `Do An/thesis-proposal/muc-01.md` đến `muc-06.md`, bản Anh `muc-0N.en.md`. Word từng mục `muc-0N.vi.docx` / `muc-0N.en.docx`. `thesis-proposal.md` chỉ là bản đồ file.
+- Thesis: `Do An/thesis/00-phan-dau.md`, `chuong-01.md` đến `chuong-06.md`, `90-tai-lieu-tham-khao.md`, `91-phu-luc.md`, kèm `.en.md`. Word từng phần `<ten>.vi.docx` / `<ten>.en.docx`. `thesis.md` chỉ là bản đồ file.
+- `Do An/proposal/proposal.md` là nguồn nội dung chi tiết cũ. Không xuất Word từ file đó.
+
+# Thuật ngữ
+
+"Đồ án" là phần bảo vệ tốt nghiệp, "dự án" là toàn bộ dự án. Không viết "đồ án 4 tháng", "dự án tổng", "dự án 18 tháng", "đề án", "capstone" trong lời văn. Số tháng chỉ ở phần lộ trình hoặc kế hoạch; chỗ khác gọi Phase 1, phần sau của Phase 1, Phase 2, hoặc tuần của đồ án.
+
+Thuật ngữ IT giữ tiếng Anh, giải thích ngắn lần đầu: pipeline, knowledge graph, graph, node, edge, schema, database, vector database, embedding, semantic search, LLM, API, endpoint, backend, demo, gold set, dev set, test set, baseline, threshold, batch, log, DRAFT, VERIFIED, FLAGGED, agent, scaffolding, master registry. Không dùng lại needs_review; ca chưa đủ chắc là FLAGGED.
+
+Mã định danh là khóa mờ do PostgreSQL cấp, theo `Note/thiet-ke-dinh-danh.md`: `P`/`EV` + 5 số, `GRP`/`LOC`/`TIM`/`ART`/`CON`/`SRC` + 4 số. Không ghép tên, danh xưng hay năm vào mã. PostgreSQL là master registry: cấp mã mờ, giữ danh xưng, nguồn và log. Lần đầu trong mỗi tài liệu ghi đủ câu này. Neo4j và ChromaDB dùng đúng mã đó. "Trích xuất" thay "chưng cất". Ba cụm tiếng Việt: "khử trùng lặp danh xưng" / "loại bỏ trùng lặp danh xưng"; "cắt đoạn", "tách đoạn", "đoạn văn"; "độ khớp F1". Không dịch gượng thành sơ đồ, điểm, mối nối, nơi lưu, phiếu vàng, gom tên, tác tử, giàn giáo.
+
+Bản Anh: entity resolution (deduplication of name variants), chunking, F1 score; giữ các thuật ngữ IT như trên.
+
+# Định dạng Word, đo từ template mới
+
+Khổ Letter 21,59 × 27,94 cm. Lề 2,54 cm. Header và footer cách mép 1,27 cm. Times New Roman, chữ đen.
+
+Thân bài 12 pt, giãn dòng đơn, cách trước và sau 5 pt, không thụt dòng đầu, căn đều. Gạch đầu dòng: chấm tròn, lề trái 1,27 cm, thụt treo 0,63 cm. Mục có nhãn: nhãn in đậm, dấu hai chấm, rồi nội dung thường. Không chép câu hướng dẫn in nghiêng của template vào bản đã điền.
+
+Bảng: 12 pt, khung đơn 0,75 pt xám C4C7C5, lề ô trên/dưới 0,21 cm, trái/phải 0,32 cm, căn giữa dọc. Hàng đầu đậm, căn giữa, lặp khi sang trang. Rộng 17,24 cm.
+
+Thesis proposal:
+
+- Tiêu đề hai dòng 18 pt đậm viết hoa căn giữa, giãn 1,15, không cách sau: "MASTER'S THESIS PROPOSAL &" và "3-MONTH EXECUTION PLAN".
+- Tiêu đề mục 12 pt đậm viết hoa, đánh số tay: "1. GENERAL INFORMATION".
+- Bảng 12 tuần bốn cột Week, Phase, Planned Tasks & Activities, Weekly Milestone / Output; rộng 2,49 / 3,50 / 6,25 / 5,00 cm (1410 / 1984 / 3544 / 2835 dxa). Hai cột đầu in đậm. Tuần 6 là Midterm.
+- Expected Deliverables: "[X]" hoặc "[ ]", ghi rõ sản phẩm nộp.
+
+Thesis:
+
+- Heading 1 24 pt, Heading 2 18 pt, Heading 3 13,5 pt, Times New Roman đậm đen, cách trước và sau 5 pt. Tiêu đề chương viết hoa: "CHAPTER 1: INTRODUCTION". Mục lục, danh mục hình và bảng dùng field Word.
+- Tài liệu tham khảo IEEE.

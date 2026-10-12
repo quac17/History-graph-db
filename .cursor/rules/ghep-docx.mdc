@@ -1,0 +1,21 @@
+---
+description: Ghép Word thesis và thesis proposal từ từng mục hoặc chương, không tạo cả file một lượt
+alwaysApply: true
+---
+
+# Ghép Word từ từng phần
+
+Thesis và thesis proposal không được xuất thành một file Word lớn bằng cách đọc lại toàn bộ Markdown.
+
+1. Xuất Word từng mục hoặc từng chương (`muc-03.vi.docx`, `chuong-03.vi.docx`, bản Anh tương ứng).
+2. Ghép file lớn bằng `Do An/tools/ghep_docx.py` và `manifest.json` trong thư mục tài liệu.
+3. Chỉ xuất lại phần vừa sửa, rồi chạy ghép. Không tạo lại các phần không đổi.
+
+Thesis proposal không ngắt trang giữa các mục. Thesis ngắt trang trước mỗi chương, tài liệu tham khảo và phụ lục.
+
+Lệnh:
+
+```
+python "Do An/tools/ghep_docx.py" --doc thesis-proposal --lang vi
+python "Do An/tools/ghep_docx.py" --doc thesis --lang both
+```
