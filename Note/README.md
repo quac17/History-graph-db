@@ -1,13 +1,13 @@
 # Note — bản đồ thư mục
 
-Tên đề tài: Triển khai hệ thống CSDL đồ thị tri thức và thiết kế pipeline trích xuất mạng lưới thực thể lịch sử 5W1H bằng LLM.
+Tên đề tài: Khung tích hợp CSDL lai và Pipeline LLM trong mô hình hóa tri thức lịch sử Việt Nam theo phương pháp 5W1H.
 
 Người thực hiện: Trần Việt Hoàng. MSSV: 25MSA13219. Giảng viên hướng dẫn: TS Bùi Trung Hiếu.
 
 Các file Word cũ nằm ở `_ban-cu/`. Bản này sắp lại theo chức năng, bám hai proposal đang dùng:
 
 - Dự án: `Project tong/master-proposal-18-thang.docx`
-- Đồ án, phần mở đầu Phase 1 của dự án: `Do An/proposal/proposal.md`, bản kỹ thuật `Do An/capstone-proposal-q1-q2-chi-tiet.docx`
+- Đồ án, phần mở đầu Phase 1 của dự án: `Do An/thesis/`. Đề cương đã chốt nằm ở `Do An/thesis-proposal/`, chỉ sửa khi được yêu cầu.
 
 Trong note, "đồ án" chỉ phần bảo vệ tốt nghiệp, "dự án" chỉ toàn bộ dự án. Thời lượng của từng phần chỉ ghi ở `05-lo-trinh`.
 
@@ -32,6 +32,11 @@ Mỗi thư mục có một file `.md` để đọc khi code và một file `.doc
 | `04-tac-tu` | Agent hỏi đáp và Phase 2 | Không làm chatbot trong đồ án. Giữ để khỏi lệch phạm vi |
 | `05-lo-trinh` | Lộ trình dự án, lộ trình đồ án, phương án 24 tháng | Bám mục đồ án |
 | `06-danh-gia` | KPI và sản phẩm bàn giao | KPI đồ án, không lấy KPI dự án làm điều kiện bảo vệ |
+
+Hai note ở gốc thư mục `Note/`:
+
+- `chuan-hoa-lich-va-don-vi-do-luong-co.md`: lưu chuỗi thời gian và số đo gốc, kèm giá trị chuẩn hóa khi quy đổi được. Bảng niên hiệu, can chi và đơn vị đo là danh mục, không cấp mã chủ thể.
+- `luu-y-xay-dung-csdl-va-su-lieu.md`: gỡ đoạn sai mà không xóa edge còn minh chứng, phiên bản tái bản, và giải đại từ về mã mờ trước khi tạo node.
 
 Mã định danh mờ do PostgreSQL cấp, theo `thiet-ke-dinh-danh.md`. Ví dụ minh họa `P00001`, `EV00001`, `LOC0001`. Không ghép tên hay năm vào mã. Mã kiểu `NODE_P_001` và mã ghép tên với mốc thời gian không dùng nữa.
 

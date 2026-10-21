@@ -1,0 +1,40 @@
+{
+  "ganzhi_stems": ["Giáp", "Ất", "Bính", "Đinh", "Mậu", "Kỷ", "Canh", "Tân", "Nhâm", "Quý"],
+  "ganzhi_branches": ["Tý", "Sửu", "Dần", "Mão", "Thìn", "Tỵ", "Ngọ", "Mùi", "Thân", "Dậu", "Tuất", "Hợi"],
+  "eras": [
+    {
+      "era_id": "ERA0001",
+      "dynasty_name": "Nhà Trần",
+      "king_name": "Trần Nhân Tông",
+      "era_name": "Trọng Hưng",
+      "start_year_solar": 1285,
+      "end_year_solar": 1293
+    }
+  ],
+  "units": [
+    {
+      "unit_id": "UNIT0001",
+      "raw_unit_name": "dặm",
+      "category": "LENGTH",
+      "si_unit": "m",
+      "conversion_factor": null,
+      "historical_context": "Các nguồn không thống nhất, khoảng 444 m đến 576 m. Không điền một hệ số."
+    },
+    {
+      "unit_id": "UNIT0002",
+      "raw_unit_name": "thước",
+      "category": "LENGTH",
+      "si_unit": "m",
+      "conversion_factor": null,
+      "historical_context": "Thước đo đất khác thước đo vải. Để trống cho đến khi có bối cảnh triều đại."
+    },
+    {
+      "unit_id": "UNIT0003",
+      "raw_unit_name": "vạn",
+      "category": "TROOP",
+      "si_unit": "person",
+      "conversion_factor": 10000,
+      "historical_context": "Cách đếm thập phân khi ngữ cảnh là quân số. 1 vạn = 10000."
+    }
+  ]
+}

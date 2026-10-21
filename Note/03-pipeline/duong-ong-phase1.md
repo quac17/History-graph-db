@@ -26,7 +26,17 @@ LLM chỉ đề xuất giá trị và danh xưng, chưa cấp mã cuối. Nguồ
 
 Đo trên gold set khoảng 150–200 đoạn sử liệu, do người gắn nhãn chủ thể, từ khóa và quan hệ, không phải do chính mô hình tự chấm. Mục tiêu proposal đồ án: độ khớp F1 theo từ khóa từ 85% đến 90%, độ khớp F1 theo quan hệ từ 75% đến 85%.
 
-### 2. Khử trùng lặp danh xưng
+### 2. Giải đại từ và từ chỉ trỏ
+
+Chạy trên đoạn chữ trước bước khử trùng lặp danh xưng. Chi tiết ở `Note/luu-y-xay-dung-csdl-va-su-lieu.md`.
+
+1. Đánh dấu đại từ người, tước hiệu, và từ chỉ nơi hoặc lúc.
+2. Nối span về tiền đề trong đoạn hoặc câu liền trước. Câu khuyết chủ ngữ được đề xuất chủ ngữ ngầm. Không có tiền đề thì không điền.
+3. Span đã giải thành một danh xưng thì đưa danh xưng đó vào bước sau. Span chưa chắc thì `FLAGGED`, không tạo node và không tạo edge từ chính từ "ông" hay "đây".
+
+Tước hiệu chung như "Vua" hoặc "Thượng hoàng" chỉ gắn một mã khi mốc thời gian của đoạn lọc còn một ứng viên. Còn nhiều ứng viên thì `FLAGGED`.
+
+### 3. Khử trùng lặp danh xưng
 
 Thứ tự, làm mức vừa sức:
 
@@ -42,7 +52,7 @@ Hai sự kiện cùng địa danh nhưng khác thời điểm là hai mã `EV`. 
 
 Mục tiêu proposal đồ án: precision từ 90% đến 95%.
 
-### 3. Nạp Neo4j
+### 4. Nạp Neo4j
 
 JSON đã khử trùng lặp danh xưng thành Cypher theo batch. Node và edge đều dùng `MERGE`. Chạy lại cùng một mã thì cập nhật, không nhân đôi node. Ghi `ingest_logs`.
 
@@ -52,7 +62,7 @@ Kiểm ràng buộc trước khi ghi:
 - Địa danh lấy tên ngày nay từ danh mục địa danh đã điền tay. Mô hình không đoán tên ngày nay.
 - Bản ghi hoặc quan hệ thiếu đoạn trích thì `DRAFT`, không có edge `SUPPORTS`.
 
-### 4. Demo hội đồng, khoảng ba phút
+### 5. Demo hội đồng, khoảng ba phút
 
 1. Mở master registry và graph đã có sẵn một số node Person.
 2. Dán một đoạn sử liệu hội đồng chọn, chưa có trong kho.
@@ -67,6 +77,7 @@ Giao diện: Streamlit. Không có chatbot cho học sinh.
 - Cắt đoạn theo nghĩa và embedding hàng loạt.
 - Gắn `linked_entity_ids` cho mọi đoạn văn.
 - Hybrid search giữa graph và vector, đo độ trễ. Proposal dự án đặt mốc dưới 1,5 đến 2 giây. Đồ án không bị chặn bởi mốc này.
+- Phiên bản tái bản: bản cũ `SUPERSEDED`, bản mới `ACTIVE`, không ghi đè văn bản gốc. Quy trình đủ ba database ở `Note/luu-y-xay-dung-csdl-va-su-lieu.md`.
 - Stance classifier (phân loại lập trường): edge `CORROBORATES` và `CONTRADICTS` giữa assertion của Đại Việt sử ký và Nguyên sử.
 - Hoàn thiện API đủ cho Phase 2 gọi.
 

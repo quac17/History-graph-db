@@ -29,3 +29,7 @@ venv/
 
 # File tạm của Office
 ~$*
+
+# Dữ liệu dump của database đồ án
+Do An/HistoricalKnowledgeDatabase/dumps/*
+!Do An/HistoricalKnowledgeDatabase/dumps/.gitkeep

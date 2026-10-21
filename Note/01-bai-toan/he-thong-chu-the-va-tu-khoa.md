@@ -81,12 +81,14 @@ Bảng dưới là các nhóm từ khóa chính. Tên trường đầy đủ, ki
 | Sự kiện | Mã, tên, loại, mốc đầu và mốc cuối, độ chính xác niên đại, quy mô, kết quả tức thời, ý nghĩa lâu dài, tóm tắt diễn biến |
 | Tổ chức | Mã, tên, loại, kinh đô hoặc đại bản doanh, năm lập và năm kết thúc, danh hiệu người đứng đầu, thành phần xã hội, tôn chỉ |
 | Không gian | Mã, tên lịch sử, tên ngày nay, loại không gian, cấp hành chính, địa hình, tọa độ, giá trị chiến lược |
-| Thời gian | Mã, năm dương lịch, năm can chi, niên hiệu, triều kỳ, thế kỷ, độ chính xác, đặc trưng thời đại |
+| Thời gian | Mã `TIM`, chuỗi gốc, ngày và tháng âm nếu có, can chi, niên hiệu, khoảng năm dương lịch, độ chính xác. Ngày ISO chỉ điền khi phép đổi lịch đã được kiểm |
 | Hiện vật | Mã, tên, loại, chất liệu, thời điểm tạo, tác giả hoặc người tạo, tình trạng hiện nay, giá trị chứng tích |
 | Kế sách, tư tưởng | Mã, tên, loại, người khởi xướng, nguyên lý, mục tiêu, tiền lệ |
 | Nguồn | Mã, tên, tác giả hoặc người biên soạn, thời điểm biên soạn, góc nhìn, vị trí trích dẫn, đoạn trích gốc, độ tin cậy |
 
 Các từ khóa đánh giá như vị thế lịch sử, ý nghĩa lâu dài, độ tin cậy chỉ được ghi khi có nguồn nói. Mô hình không tự viết lời bình vào các trường đó.
+
+Số đo không phải chủ thể thứ chín. Chúng là thuộc tính của sự kiện hoặc tổ chức mà câu nói tới: biểu thức gốc, số lượng gốc, đơn vị gốc, giá trị SI nếu chọn được hệ số, và bối cảnh của hệ số. Hệ số đổi theo triều và theo vùng. Không có hệ số thì để trống giá trị SI. Chi tiết ở `Note/chuan-hoa-lich-va-don-vi-do-luong-co.md`.
 
 ## Quan hệ giữa các chủ thể
 
@@ -100,7 +102,7 @@ Các từ khóa đánh giá như vị thế lịch sử, ý nghĩa lâu dài, đ
 | Sự kiện với hiện vật | Dùng hiện vật, sinh ra tác phẩm, để lại di tích |
 | Mọi chủ thể với nguồn | Được ghi trong nguồn, hai nguồn tương đồng, hai nguồn mâu thuẫn |
 
-Tên edge trong code chốt ở sprint 1–2. Các tên đã có: `COMMANDED`, `PARTICIPATED_IN`, `OPPOSED_IN`, `TOOK_PLACE_AT`, `OCCURRED_DURING`, `EMPLOYED_STRATEGY`, `LEFT_HERITAGE`, `SUPPORTS`. Note thứ hai dùng `RECORDS` cho quan hệ nguồn ghi sự kiện. Proposal đồ án dùng `SUPPORTS`, kèm đoạn trích, nên code giữ `SUPPORTS`.
+Các tên đã có: `COMMANDED`, `PARTICIPATED_IN`, `OPPOSED_IN`, `TOOK_PLACE_AT`, `OCCURRED_DURING`, `EMPLOYED_STRATEGY`, `LEFT_HERITAGE`, `SUPPORTS`. Quan hệ nguồn giữ `SUPPORTS`, kèm đoạn trích. Edge giữ `source_chunk_ids` và `evidence_count` khi có nhiều đoạn cùng củng cố một quan hệ. Rút một đoạn sai không xóa edge nếu vẫn còn minh chứng. Quy tắc này ở `Note/luu-y-xay-dung-csdl-va-su-lieu.md`.
 
 ## Ràng buộc
 
@@ -108,9 +110,11 @@ Tên edge trong code chốt ở sprint 1–2. Các tên đã có: `COMMANDED`, `
 | --- | --- | --- |
 | Niên đại sinh và mất | Một người không thể tham gia sự kiện trước khi sinh hoặc sau khi mất, trừ khi nguồn nói về việc hậu thế tôn vinh | Kiểm khi nạp. Vi phạm thì `FLAGGED`, không tự sửa năm |
 | Địa danh xưa và nay | Địa danh lịch sử đi kèm tên hành chính ngày nay | Có trường `modern_name`. Danh mục địa danh thí điểm điền tay. Mô hình không đoán tên ngày nay |
-| Nguồn bắt buộc | Mọi khẳng định và quan hệ gắn với ít nhất một nguồn | Có. Thiếu đoạn trích thì `draft` |
+| Nguồn bắt buộc | Mọi khẳng định và quan hệ gắn với ít nhất một nguồn | Có. Thiếu đoạn trích thì `DRAFT` |
 | Giữ dị bản | Hai bộ sử chép khác nhau thì giữ cả hai và nối bằng quan hệ đối chiếu | Không. Thuộc cuối Phase 1 |
 | Đồng nhất thực thể | Một người nhiều tên vẫn là một node | Có, qua bước khử trùng lặp danh xưng |
+| Đại từ và từ chỉ trỏ | Ông, tước hiệu, "nơi đây", "bấy giờ" phải về mã đã có trước khi tạo edge | Có trong pipeline trích xuất. Chưa chắc thì `FLAGGED`, không tạo edge |
+| Chuỗi thời gian và số đo gốc | Giữ chữ trong nguồn, ghi thêm năm dương lịch hoặc giá trị SI khi quy đổi được | Có ở mức thuộc tính. Đối chiếu dị bản và hỏi theo khoảng số để sau |
 
 ## Graph và vector
 

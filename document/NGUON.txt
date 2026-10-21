@@ -33,6 +33,25 @@ Kỹ thuật truy xuất và tiếng Việt
 11. PhoBERT-EMNLP-2020.pdf
     https://aclanthology.org/2020.findings-emnlp.92.pdf
 
+Lịch pháp, đơn vị đo, đại từ và provenance
+12. Aslaksen-2010-Mathematics-Chinese-Calendar.pdf
+    Helmer Aslaksen, The Mathematics of the Chinese Calendar, bản thảo 17/7/2010.
+    Lịch âm-dương Đông Á, tháng nhuận và chu kỳ tiết khí. Lịch Việt không trùng lịch Trung Hoa sau cải lịch, nên bài này chỉ là cơ sở so sánh, không phải phép tính niên hiệu Việt Nam.
+    https://gwern.net/doc/science/physics/astronomy/2010-aslaksen.pdf
+13. Tran-etal-2024-Vietnamese-Coreference-PACLIC.pdf
+    Hieu-Dai Tran, Duc-Vu Nguyen, Ngan Luu-Thuy Nguyen, Coreference Resolution for Vietnamese Narrative Texts, PACLIC 2024, tr. 1408–1417.
+    https://aclanthology.org/2024.paclic-1.139.pdf
+14. Tran-Nguyen-2013-Vietnamese-Anaphora.pdf
+    Trung Tran và Dang Tuan Nguyen, A Computational Approach for Analyzing Inter-sentential Anaphoric Pronouns in Vietnamese Paragraphs, IJNLC, vol. 2, no. 3, 2013.
+    https://airccse.org/journal/ijnlc/papers/2313ijnlc03.pdf
+15. Vu-etal-2018-VnCoreNLP.pdf
+    Thanh Vu và cộng sự, VnCoreNLP: A Vietnamese Natural Language Processing Toolkit, NAACL 2018, tr. 56–60.
+    Bộ công cụ tách từ, gán nhãn từ loại, nhận thực thể và phân tích cú pháp. Không có bước giải đại từ.
+    https://aclanthology.org/N18-5012.pdf
+
 Không tải được file PDF
 - CIDOC CRM (ISO 21127): các đường dẫn PDF thử trên cidoc-crm.org trả về 404. Trang chuẩn: https://cidoc-crm.org/
+- PROV-DM (W3C Recommendation, 30/4/2013, Luc Moreau và Paolo Missier): các đường dẫn .pdf thử trên w3.org trả về 404. Bản chuẩn là HTML: https://www.w3.org/TR/prov-dm/
+- Quy tắc tính âm lịch Việt Nam của Hồ Ngọc Đức là trang HTML, không có PDF ổn định để tải: https://www.xemamlich.uhm.vn/calrules.html
+- Đơn vị đo cổ: bài "Đo lường ở Việt Nam" trên khoavanhoc-ngonngu.edu.vn là HTML. Các hệ số dặm, thước, mẫu không thống nhất giữa các từ điển được bài dẫn. Không tải một bảng quy đổi làm chân lý.
 - Adjacent Possible (Kauffman, Johnson), quyết định luận công nghệ (Chris Anderson), diễn giải học vật chất (Don Ihde) và công cụ I Sho U: bản chiến lược nhắc như lý thuyết, không có một PDF mở ổn định để tải. Các mục này không thuộc phạm vi xây dựng của nguyên mẫu.

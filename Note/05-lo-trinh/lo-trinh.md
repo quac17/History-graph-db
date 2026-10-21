@@ -33,7 +33,7 @@ Là tháng 1–4 ở bảng trên. Không gồm chatbot, không gồm liên kế
 | 3 | 5–6 | Extractor và nạp Neo4j | Một đoạn chữ thành node, chạy lại không nhân đôi |
 | 4 | 7–8 | Khử trùng lặp danh xưng, Streamlit, đo độ khớp F1 và precision | Demo ba phút và bảng số |
 
-Bản đang dùng: `Do An/proposal/proposal.md`. Thesis proposal theo form mới: `Do An/thesis-proposal/muc-01.md` đến `muc-06.md`.
+Luận văn ghi ở `Do An/thesis/`. Đề cương đã chốt nằm ở `Do An/thesis-proposal/muc-01.md` đến `muc-06.md`.
 
 Thứ tự trong file đồ án đặt khử trùng lặp danh xưng ở tháng 4, sau nạp graph. Khi code, bước này phải chạy trước lệnh tạo node Person. Tháng 3 nạp được với tên đã chuẩn hóa tay. Tháng 4 mới bật khử trùng lặp tự động. Đừng tạo node trùng rồi mới gộp nếu chưa có thử nghiệm.
 

@@ -1,0 +1,17 @@
+{
+  "name": "history-graph-db",
+  "private": true,
+  "scripts": {
+    "gen_slide": "python \"Do An/tools/tao_slide_proposal.py\"",
+    "gen_proposal": "python \"Do An/tools/xuat_thesis_proposal.py\" && python \"Do An/tools/ghep_docx.py\" --doc thesis-proposal --lang both",
+    "gen_proposal_vi": "python \"Do An/tools/xuat_thesis_proposal.py\" && python \"Do An/tools/ghep_docx.py\" --doc thesis-proposal --lang vi",
+    "gen_proposal_en": "python \"Do An/tools/xuat_thesis_proposal.py\" && python \"Do An/tools/ghep_docx.py\" --doc thesis-proposal --lang en",
+    "gen_all": "yarn gen_proposal && yarn gen_slide",
+    "setup": "python \"Do An/HistoricalKnowledgeDatabase/scripts/setup.py\"",
+    "init_db": "python \"Do An/HistoricalKnowledgeDatabase/scripts/init_db.py\"",
+    "generated_db": "python \"Do An/HistoricalKnowledgeDatabase/scripts/generated_db.py\"",
+    "reset_db": "python \"Do An/HistoricalKnowledgeDatabase/scripts/reset_db.py\"",
+    "seed_db": "python \"Do An/HistoricalKnowledgeDatabase/scripts/seed_db.py\"",
+    "dump_db": "python \"Do An/HistoricalKnowledgeDatabase/scripts/dump_db.py\""
+  }
+}

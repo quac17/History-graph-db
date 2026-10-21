@@ -22,9 +22,10 @@ Cấu trúc mục con của thesis, đúng template:
 
 Nội dung chỉ sửa trong Markdown từng mục hoặc từng chương. File Word từng phần xuất từ Markdown đó, không sửa Word như bản gốc. File Word lớn được ghép từ các file Word từng phần bằng `Do An/tools/ghep_docx.py`, không tạo cả tài liệu một lượt từ một file Markdown.
 
+Từ giờ, tài liệu học thuật mới hoặc nội dung cập nhật của đồ án ghi vào `Do An/thesis/`. Chỉ sửa `Do An/thesis-proposal/` khi người thực hiện yêu cầu rõ thư mục đó.
+
 - Thesis proposal: `Do An/thesis-proposal/muc-01.md` đến `muc-06.md`, bản Anh `muc-0N.en.md`. Word từng mục `muc-0N.vi.docx` / `muc-0N.en.docx`. `thesis-proposal.md` chỉ là bản đồ file.
 - Thesis: `Do An/thesis/00-phan-dau.md`, `chuong-01.md` đến `chuong-06.md`, `90-tai-lieu-tham-khao.md`, `91-phu-luc.md`, kèm `.en.md`. Word từng phần `<ten>.vi.docx` / `<ten>.en.docx`. `thesis.md` chỉ là bản đồ file.
-- `Do An/proposal/proposal.md` là nguồn nội dung chi tiết cũ. Không xuất Word từ file đó.
 
 # Thuật ngữ
 

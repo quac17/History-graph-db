@@ -1,0 +1,117 @@
+{
+  "note": "Cụm mẫu để thử schema. Câu trong raw_documents là câu minh họa, không phải đoạn trích nguyên văn từ chính sử.",
+  "raw_document": {
+    "doc_id": "chunk_seed_001",
+    "source_id": "SRC0001",
+    "text": "Trần Quốc Tuấn chỉ huy trận Bạch Đằng. Quân Nguyên ở phía đối địch. Trận diễn ra trên sông Bạch Đằng, vào năm Mậu Tý niên hiệu Trọng Hưng thứ 4, và dùng cọc ngầm. Quân số được kể là 3 vạn quân."
+  },
+  "source_document": {
+    "source_id": "SRC0001",
+    "title": "Đại Việt sử ký toàn thư",
+    "author_compiler": null,
+    "compilation_era": "Nhà Lê",
+    "source_perspective": "DomesticOfficial",
+    "storage_path": null,
+    "doc_status": "ACTIVE",
+    "doc_version": "1"
+  },
+  "entities": [
+    {
+      "entity_id": "P00001",
+      "entity_type": "Person",
+      "canonical_name": "Trần Quốc Tuấn",
+      "verification_status": "VERIFIED",
+      "confidence_score": 1,
+      "historical_role_class": "MilitaryCommander"
+    },
+    {
+      "entity_id": "GRP0001",
+      "entity_type": "Group",
+      "canonical_name": "quân Nguyên",
+      "verification_status": "VERIFIED",
+      "confidence_score": 1,
+      "group_type": "MilitaryForce"
+    },
+    {
+      "entity_id": "EV00001",
+      "entity_type": "Event",
+      "canonical_name": "Trận Bạch Đằng",
+      "verification_status": "VERIFIED",
+      "confidence_score": 1,
+      "event_type": "MilitaryBattle"
+    },
+    {
+      "entity_id": "LOC0001",
+      "entity_type": "Place",
+      "canonical_name": "Sông Bạch Đằng",
+      "verification_status": "VERIFIED",
+      "confidence_score": 1,
+      "spatial_category": "Battlefield",
+      "modern_name": "Sông Bạch Đằng"
+    },
+    {
+      "entity_id": "TIM0001",
+      "entity_type": "TimeSpan",
+      "canonical_name": "Năm Mậu Tý, niên hiệu Trọng Hưng thứ 4",
+      "verification_status": "VERIFIED",
+      "confidence_score": 1,
+      "temporal_granularity": "SpecificYear",
+      "raw_text": "Năm Mậu Tý, niên hiệu Trọng Hưng thứ 4",
+      "lunar_year_ganzhi": "Mậu Tý",
+      "era_id": "ERA0001",
+      "era_year": 4,
+      "solar_year_start": 1288,
+      "solar_year_end": 1288
+    },
+    {
+      "entity_id": "CON0001",
+      "entity_type": "Concept",
+      "canonical_name": "Cọc ngầm đón nước triều",
+      "verification_status": "VERIFIED",
+      "confidence_score": 1,
+      "concept_category": "MilitaryTactic"
+    },
+    {
+      "entity_id": "ART0001",
+      "entity_type": "Artifact",
+      "canonical_name": "Cọc gỗ Bạch Đằng",
+      "verification_status": "VERIFIED",
+      "confidence_score": 1,
+      "artifact_type": "WeaponEquipment"
+    },
+    {
+      "entity_id": "SRC0001",
+      "entity_type": "Source",
+      "canonical_name": "Đại Việt sử ký toàn thư",
+      "verification_status": "VERIFIED",
+      "confidence_score": 1,
+      "source_perspective": "DomesticOfficial"
+    }
+  ],
+  "aliases": [
+    {"entity_id": "P00001", "alias_name": "Trần Quốc Tuấn", "alias_type": "canonical", "source_citation": "chunk_seed_001"},
+    {"entity_id": "P00001", "alias_name": "Trần Hưng Đạo", "alias_type": "regnal", "source_citation": "chunk_seed_001"},
+    {"entity_id": "P00001", "alias_name": "Hưng Đạo Vương", "alias_type": "title", "source_citation": "chunk_seed_001"},
+    {"entity_id": "P00001", "alias_name": "Hưng Đạo Đại Vương", "alias_type": "title", "source_citation": "chunk_seed_001"}
+  ],
+  "relations": [
+    {"head_id": "P00001", "relation_type": "COMMANDED", "tail_id": "EV00001"},
+    {"head_id": "GRP0001", "relation_type": "OPPOSED_IN", "tail_id": "EV00001"},
+    {"head_id": "EV00001", "relation_type": "TOOK_PLACE_AT", "tail_id": "LOC0001"},
+    {"head_id": "EV00001", "relation_type": "OCCURRED_DURING", "tail_id": "TIM0001"},
+    {"head_id": "EV00001", "relation_type": "EMPLOYED_STRATEGY", "tail_id": "CON0001"},
+    {"head_id": "SRC0001", "relation_type": "SUPPORTS", "tail_id": "EV00001"}
+  ],
+  "measurements": [
+    {
+      "entity_id": "EV00001",
+      "raw_expression": "3 vạn quân",
+      "quantity_raw": 3,
+      "unit_raw": "vạn",
+      "target_type": "TROOP_SIZE",
+      "normalized_value_si": 30000,
+      "si_unit": "person",
+      "conversion_note": "tham chiếu thập phân, 1 vạn = 10000"
+    }
+  ]
+}

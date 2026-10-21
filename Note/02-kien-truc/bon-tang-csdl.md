@@ -18,6 +18,7 @@ Ràng buộc nên tạo ngay sprint 1–2:
 - `id` đúng mẫu khóa mờ: `P` + 5 số, `EV` + 5 số, `GRP`/`LOC`/`TIM`/`ART`/`CON`/`SRC` + 4 số. Không ghép tên hay năm vào mã.
 - Trường phân loại như `Event.event_type`, `Place.spatial_category` nằm trong danh mục đóng.
 - Mọi `Event` dùng để demo phải có ít nhất một `Source` qua edge `SUPPORTS`.
+- Edge quan hệ giữ `source_chunk_ids` và `evidence_count`. Nhiều đoạn cùng củng cố một quan hệ thì cùng nằm trong mảng. Rút một đoạn sai không xóa edge nếu mảng còn phần tử.
 
 ```cypher
 CREATE CONSTRAINT person_id IF NOT EXISTS FOR (p:Person) REQUIRE p.id IS UNIQUE;
@@ -68,7 +69,8 @@ Mỗi bản ghi:
     "linked_entity_ids": ["P00001", "EV00001", "LOC0001"],
     "event_type": "MilitaryBattle",
     "source_id": "SRC0001",
-    "page": "58"
+    "page": "58",
+    "is_latest": true
   }
 }
 ```
@@ -100,12 +102,12 @@ Bảng cốt lõi trong đồ án:
 | --- | --- |
 | dim_entities | entity_id, entity_type, canonical_name, wikidata_id, verification_status, confidence_score |
 | entity_aliases | alias_id, entity_id, alias_name, alias_type, source_citation; chỉ mục tên và pg_trgm |
-| source_documents | source_id, title, author_compiler, compilation_era, source_perspective, storage_path |
+| source_documents | source_id, title, author_compiler, compilation_era, source_perspective, storage_path, doc_status, doc_version |
 | raw_documents | doc_id, source_id, text, checksum |
 | extraction_runs | run_id, doc_id, model_name, created_at, json_path |
 | ingest_logs | run_id, status, message |
 
-`verification_status` nhận `DRAFT`, `VERIFIED`, `FLAGGED`.
+`verification_status` nhận `DRAFT`, `VERIFIED`, `FLAGGED`. Tài liệu nhận `doc_status` là `ACTIVE` hoặc `SUPERSEDED`. Đoạn văn bị xác định là sai nhận `chunk_status = REJECTED`. Hai trạng thái này không thay trạng thái kiểm của bản ghi trích xuất.
 
 Bảng Phase 2, tạo sau: `users`, `learning_logs`.
 

@@ -1,6 +1,6 @@
 # Đồ án trong dự án
 
-Tên đề tài: Triển khai hệ thống CSDL đồ thị tri thức và thiết kế pipeline trích xuất mạng lưới thực thể lịch sử 5W1H bằng LLM.
+Tên đề tài: Khung tích hợp CSDL lai và Pipeline LLM trong mô hình hóa tri thức lịch sử Việt Nam theo phương pháp 5W1H.
 
 Người thực hiện: Trần Việt Hoàng. MSSV: 25MSA13219. Giảng viên hướng dẫn: TS Bùi Trung Hiếu.
 
@@ -9,7 +9,7 @@ Bản này bám slide `Do An/slide-gioi-thieu-do-an.pptx`, viết dài hơn. Ph�
 Nguồn đang dùng:
 
 - Dự án: `Project tong/master-proposal-18-thang.docx`
-- Đồ án: `Do An/thesis-proposal/muc-01.md` đến `muc-06.md`. Bản chi tiết cũ: `Do An/proposal/proposal.md`.
+- Đồ án: `Do An/thesis/`. Đề cương đã chốt: `Do An/thesis-proposal/muc-01.md` đến `muc-06.md`.
 - Mã và ba database: `Note/thiet-ke-dinh-danh.md`. Chủ thể và từ khóa: `Note/01-bai-toan/he-thong-chu-the-va-tu-khoa.md`.
 
 ---
@@ -22,7 +22,7 @@ Nguồn đang dùng:
 
 ## 1. Đồ án là gì
 
-Đồ án triển khai hệ thống CSDL đồ thị tri thức và thiết kế pipeline trích xuất mạng lưới thực thể lịch sử 5W1H bằng LLM. Về kỹ thuật, đó là hạ tầng multi-model database (graph, vector và relational database) và pipeline trích xuất thực thể và quan hệ theo hệ thống chủ thể và từ khóa.
+Đồ án là khung tích hợp CSDL lai và Pipeline LLM trong mô hình hóa tri thức lịch sử Việt Nam theo phương pháp 5W1H. Về kỹ thuật, đó là hạ tầng multi-model database (graph, vector và relational database) và pipeline trích xuất thực thể và quan hệ theo hệ thống chủ thể và từ khóa.
 
 Đồ án là phần mở đầu của dự án. Sản phẩm của đồ án là mạng lưới thực thể trên knowledge graph, không phải chatbot cho học sinh. Thời lượng của đồ án và của dự án ghi ở mục 3 và mục 11.
 

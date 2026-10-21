@@ -2,7 +2,7 @@
 
 Bản nháp để duyệt nội dung trước khi dựng slide. Duyệt xong mới tạo file `.pptx`.
 
-- Đề tài: Triển khai hệ thống CSDL đồ thị tri thức và thiết kế pipeline trích xuất mạng lưới thực thể lịch sử 5W1H bằng LLM
+- Đề tài: Khung tích hợp CSDL lai và Pipeline LLM trong mô hình hóa tri thức lịch sử Việt Nam theo phương pháp 5W1H
 - Người thực hiện: Trần Việt Hoàng, MSSV 25MSA13219
 - Giảng viên hướng dẫn: TS Bùi Trung Hiếu
 - Số slide: 21, khoảng 15 đến 20 phút trình bày
@@ -28,8 +28,8 @@ Bố cục:
 Nội dung:
 
 - Trường Đại học FPT · Thesis Proposal
-- Triển khai hệ thống CSDL đồ thị tri thức và thiết kế pipeline trích xuất mạng lưới thực thể lịch sử 5W1H bằng LLM
-- Implementing a Knowledge Graph Database System and Designing an LLM Pipeline to Extract a 5W1H Network of Historical Entities
+- Khung tích hợp CSDL lai và Pipeline LLM trong mô hình hóa tri thức lịch sử Việt Nam theo phương pháp 5W1H
+- An Integrated Framework Combining Hybrid Databases and LLM Pipelines for 5W1H Vietnamese Historical Knowledge Modeling
 - Người thực hiện: Trần Việt Hoàng · MSSV 25MSA13219
 - Giảng viên hướng dẫn: TS Bùi Trung Hiếu
 - Hà Nội, 2026

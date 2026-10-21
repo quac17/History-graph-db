@@ -19,7 +19,9 @@ Mã là khóa thay thế, do PostgreSQL cấp qua sequence. Mã không chứa t�
 | Kế sách, tư tưởng | `:Concept` | `CON` + 4 số | `CON0001` |
 | Nguồn | `:Source` | `SRC` + 4 số | `SRC0001` |
 
-Không ghép tên và năm vào mã. Tiền tố cũ `PERSON_`, `STRAT_`, `IDEO_`, `TIME_`, `ERA_` không còn. Concept dùng `CON`. TimeSpan dùng `TIM`.
+Không ghép tên và năm vào mã. Tiền tố cũ `PERSON_`, `STRAT_`, `IDEO_`, `TIME_`, `ERA_` không còn. Concept dùng `CON`. TimeSpan dùng `TIM`. Mã kiểu `TIM001288` không dùng, vì năm nằm ở thuộc tính.
+
+Ba bảng tra cứu không cấp mã chủ thể: `ref_historical_eras`, `ref_ganzhi_cycles`, `ref_measurement_units`. Khóa của chúng là khóa danh mục. Một mốc thời gian trong sử liệu vẫn là `:TimeSpan` với `entity_id` dạng `TIM0001`. Quy ước lưu chuỗi gốc, năm dương lịch và số đo nằm ở `Note/chuan-hoa-lich-va-don-vi-do-luong-co.md`.
 
 Một người nhiều danh xưng cùng trỏ một mã, qua bảng `entity_aliases`. Nhiều người trùng tên là nhiều mã. Nhiều sự kiện cùng địa danh là nhiều mã `EV`, tách nhau bằng thuộc tính và quan hệ thời gian, không bằng cách nhét năm vào mã.
 
@@ -39,7 +41,7 @@ PostgreSQL là master registry, nguồn chân lý của mã. Ba bảng cốt lõ
 
 - `dim_entities`: `entity_id`, `entity_type`, `canonical_name`, `wikidata_id`, `verification_status`, `confidence_score`.
 - `entity_aliases`: danh xưng, loại danh xưng, trích dẫn nguồn. Chỉ mục B-Tree và `pg_trgm` để đối khớp mờ.
-- `source_documents`: mã nguồn, nhan đề, người biên soạn, góc nhìn, đường dẫn tệp.
+- `source_documents`: mã nguồn, nhan đề, người biên soạn, góc nhìn, đường dẫn tệp, `doc_status`, `doc_version`. `doc_status` nhận `ACTIVE` hoặc `SUPERSEDED`. Đó là trạng thái tài liệu, không thay `verification_status`.
 
 Neo4j giữ node và edge. Khóa node là `entity_id` đã cấp ở PostgreSQL. ChromaDB giữ đoạn văn; `metadata.linked_entity_ids` và `metadata.source_id` dùng cùng các mã đó. Cắt đoạn hàng loạt và truy vấn lai thuộc phần sau của đồ án. Đồ án dựng schema vector và vài bản ghi mẫu.
 

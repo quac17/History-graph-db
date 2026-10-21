@@ -19,4 +19,4 @@ Chỉ xuất Word khi người thực hiện đã duyệt nội dung file `.md` 
 
 Bản Word tiếng Việt dịch tiêu đề mục của template sang tiếng Việt, ví dụ "1. THÔNG TIN CHUNG", "CHƯƠNG 1: GIỚI THIỆU". Bản tiếng Anh giữ nguyên tiêu đề template.
 
-Không xuất Word từ `Do An/proposal/proposal.md`.
+Tài liệu học thuật mới ghi vào `Do An/thesis/`. Chỉ xuất hoặc sửa thesis proposal khi người thực hiện yêu cầu rõ.
